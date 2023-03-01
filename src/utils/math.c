@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stacks.h                                           :+:      :+:    :+:   */
+/*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suiramdev <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 16:02:25 by suiramdev         #+#    #+#             */
-/*   Updated: 2023/03/01 15:43:36 by suiramdev        ###   ########.fr       */
+/*   Created: 2023/03/01 14:53:37 by suiramdev         #+#    #+#             */
+/*   Updated: 2023/03/01 14:54:31 by suiramdev        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STACKS_H
-# define STACKS_H
-
-# include "types/stack.h"
-
-typedef struct s_stacks
+long	count_bits(long	num)
 {
-	t_stack	*a;
-	t_stack	*b;
-}	t_stacks;
+	long	count;
 
-#endif
+	count = 0;
+	while (num > 0)
+	{
+		count++;
+		num >>= 1;
+	}
+	return (count);
+}
+
+long	ft_pow(long num, long pow)
+{
+	long	result;
+
+	result = 1;
+	while (pow > 0)
+	{
+		result *= num;
+		pow--;
+	}
+	return (result);
+}

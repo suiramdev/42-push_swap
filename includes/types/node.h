@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stacks.h                                           :+:      :+:    :+:   */
+/*   node.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suiramdev <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 16:02:25 by suiramdev         #+#    #+#             */
-/*   Updated: 2023/03/01 15:43:36 by suiramdev        ###   ########.fr       */
+/*   Created: 2023/03/01 14:45:41 by suiramdev         #+#    #+#             */
+/*   Updated: 2023/03/01 14:52:54 by suiramdev        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STACKS_H
-# define STACKS_H
+#ifndef NODE_H
+# define NODE_H
 
-# include "types/stack.h"
-
-typedef struct s_stacks
+typedef struct s_node
 {
-	t_stack	*a;
-	t_stack	*b;
-}	t_stacks;
+	long			num;
+	struct s_node	*next;
+}	t_node;
+
+t_node	*new_node(t_node **head, long num);
+t_node	*last_node(t_node *head);
+t_node	*highest_node(t_node *head);
 
 #endif

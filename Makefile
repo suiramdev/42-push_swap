@@ -6,7 +6,7 @@
 #    By: mnouchet <mnouchet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 22:19:57 by mnouchet          #+#    #+#              #
-#    Updated: 2023/02/23 03:14:00 by suiramdev        ###   ########.fr        #
+#    Updated: 2023/03/01 16:36:54 by suiramdev        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,9 @@ INCS		:= includes				\
 SRCS_DIR	:= src
 SRCS		:= main.c			\
 			   utils/parsing.c	\
-			   types/stacks.c
+			   utils/math.c		\
+			   types/node.c		\
+			   types/stack.c
 
 SRCS		:= $(SRCS:%=$(SRCS_DIR)/%)
 
