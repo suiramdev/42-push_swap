@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "types/stack.h"
 #include "types/stacks.h"
 #include "types/node.h"
 #include "utils/math.h"
@@ -50,8 +51,8 @@ static t_stacks	*init_stacks(char **nums)
 int	main(int argc, char **argv)
 {
 	t_stacks	*stacks;
-	long		bit;
 	long		bits_max;
+	long		bit;
 	size_t		i;
 
 	if (argc < 2)
@@ -59,14 +60,14 @@ int	main(int argc, char **argv)
 	stacks = init_stacks(argv + 1);
 	if (!stacks)
 		return (error());
-	bits_max = count_bits(highest_node(stacks->a->head)->num);
+	bits_max = count_bits(highest_node(stacks->a->head)->num) + 1;
 	bit = 0;
 	while (bit < bits_max)
 	{
 		i = 0;
 		while (i < stacks->a->size)
 		{
-			if (stacks->a->head->num & ft_pow(2, bit))
+			if ((stacks->a->head->num & ft_pow(2, bit)) == 0)
 				push_stack(stacks->a, stacks->b);
 			else
 				rotate_stack(stacks->a);
@@ -74,6 +75,8 @@ int	main(int argc, char **argv)
 		}
 		bit++;
 	}
+	while (stacks->b->head)
+		push_stack(stacks->b, stacks->a);
 	free_stacks(stacks);
 	return (EXIT_SUCCESS);
 }

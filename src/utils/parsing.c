@@ -19,6 +19,8 @@ int	verify_arg(char *arg)
 {
 	while (ft_isspace(*arg))
 		arg++;
+	if (*arg == '-')
+		arg++;
 	if (*arg == '\0')
 		return (0);
 	while (*arg)

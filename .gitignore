@@ -1,3 +1,5 @@
 # Build stuff
 push_swap
 .build
+
+push_swap_visualizer

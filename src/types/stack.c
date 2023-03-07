@@ -88,7 +88,7 @@ void	rotate_stack(t_stack *stack)
 	before_last->next = NULL;
 	last->next = stack->head;
 	stack->head = last;
-	write(1, "r", 1);
+	write(1, "rr", 2);
 	write(1, &stack->name, 1);
 	write(1, "\n", 1);
 }
