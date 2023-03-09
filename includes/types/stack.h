@@ -3,30 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   stack.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suiramdev <marvin@42.fr>                   +#+  +:+       +#+        */
+/*   By: mnouchet <mnouchet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/01 15:31:20 by suiramdev         #+#    #+#             */
-/*   Updated: 2023/03/01 16:35:23 by suiramdev        ###   ########.fr       */
+/*   Created: 2023/03/08 17:38:35 by mnouchet          #+#    #+#             */
+/*   Updated: 2023/03/08 18:52:37 by mnouchet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STACK_H
 # define STACK_H
 
-# include "types/node.h"
-# include <stddef.h>
+# include <stdlib.h>
 
-typedef struct s_stack
+typedef struct s_node
 {
-	char	name;
-	t_node	*head;
-	size_t	size;
-}	t_stack;
+	int				value;
+	struct s_node	*next;
+}	t_node;
 
-void	free_stack(t_stack *stack);
-t_stack	*init_stack(char name, char **nums);
-void	swap_stack(t_stack *stack);
-void	rotate_stack(t_stack *stack);
-void	push_stack(t_stack *from, t_stack *to);
+void	free_stack(t_node **head);
+t_node	*push_stack(t_node **stack, int value);
+size_t	stack_size(t_node *head);
+void	move_rotate(char c, t_node **head);
+void	move_push(char c, t_node **from, t_node **to);
 
 #endif

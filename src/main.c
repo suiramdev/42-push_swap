@@ -5,79 +5,93 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnouchet <mnouchet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 22:24:23 by mnouchet          #+#    #+#             */
-/*   Updated: 2023/03/01 16:36:03 by suiramdev        ###   ########.fr       */
+/*   Created: 2023/03/08 17:33:00 by mnouchet          #+#    #+#             */
+/*   Updated: 2023/03/08 18:53:48 by mnouchet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types/stack.h"
-#include "types/stacks.h"
-#include "types/node.h"
-#include "utils/math.h"
-#include <unistd.h>
+#include "utils/parsing.h"
+#include "utils/scaling.h"
+#include "utils/maths.h"
 #include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
 
-static int	error()
+static int	error(void)
 {
-	write(STDOUT_FILENO, "Error\n", 6);
+	write(STDERR_FILENO, "Error", 5);
 	return (EXIT_FAILURE);
 }
 
-static void	free_stacks(t_stacks *stacks)
+/// @brief Check if the stack is is_sorted
+/// @param stack The stack to check
+/// @return 1 if the stack is is_sorted, 0 otherwise
+static int	is_sorted(t_node *stack)
 {
-	free_stack(stacks->a);
-	free_stack(stacks->b);
-	free(stacks);
+	t_node	*tmp;
+
+	tmp = stack;
+	while (tmp && tmp->next)
+	{
+		if (tmp->value > tmp->next->value)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
 }
 
-static t_stacks	*init_stacks(char **nums)
+static void	default_sort(t_node	**a, t_node **b)
 {
-	t_stacks	*stacks;
+	size_t	size;
+	size_t	bits;
+	size_t	bit;
+	size_t	i;
 
-	stacks = malloc(sizeof(t_stacks));
-	if (!stacks)
-		return (NULL);
-	stacks->a = init_stack('a', nums);
-	stacks->b = init_stack('b', NULL);
-	if (!stacks->a)
+	size = stack_size(*a);
+	bits = count_bits(size - 1);
+	bit = 0;
+	while (bit < bits)
 	{
-		free_stacks(stacks);
-		return (NULL);
+		i = 0;
+		while (i < size && !is_sorted(*a))
+		{
+			if ((((*a)->value >> bit) & 1) == 1)
+				move_rotate('a', a);
+			else
+				move_push('b', a, b);
+			i++;
+		}
+		while (*b)
+			move_push('a', b, a);
+		bit++;
 	}
-	return (stacks);
 }
 
 int	main(int argc, char **argv)
 {
-	t_stacks	*stacks;
-	long		bits_max;
-	long		bit;
-	size_t		i;
+	t_node	**parsed;
+	t_node	**a;
+	t_node	**b;
 
-	if (argc < 2)
+	if (argc < 3)
 		return (error());
-	stacks = init_stacks(argv + 1);
-	if (!stacks)
+	parsed = parse_args(argv + 1);
+	if (!parsed)
 		return (error());
-	bits_max = count_bits(highest_node(stacks->a->head)->num) + 1;
-	bit = 0;
-	while (bit < bits_max)
+	a = weight_stack(parsed);
+	free_stack(parsed);
+	if (!a)
+		return (error());
+	b = malloc(sizeof(t_node *));
+	if (!b)
 	{
-		i = 0;
-		while (i < stacks->a->size)
-		{
-			if ((stacks->a->head->num & ft_pow(2, bit)) == 0)
-				push_stack(stacks->a, stacks->b);
-			else
-				rotate_stack(stacks->a);
-			i++;
-		}
-		bit++;
+		free_stack(a);
+		return (error());
 	}
-	while (stacks->b->head)
-		push_stack(stacks->b, stacks->a);
-	free_stacks(stacks);
+	*b = NULL;
+	default_sort(a, b);
+	free_stack(a);
+	free_stack(b);
 	return (EXIT_SUCCESS);
 }
-

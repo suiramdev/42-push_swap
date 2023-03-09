@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suiramdev <marvin@42.fr>                   +#+  +:+       +#+        */
+/*   By: mnouchet <mnouchet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 03:08:49 by suiramdev         #+#    #+#             */
-/*   Updated: 2023/02/23 03:09:25 by suiramdev        ###   ########.fr       */
+/*   Created: 2023/03/08 18:04:00 by mnouchet          #+#    #+#             */
+/*   Updated: 2023/03/08 18:04:25 by mnouchet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-int	verify_arg(char *arg);
+# include "types/stack.h"
+
+t_node	**parse_args(char **args);
 
 #endif

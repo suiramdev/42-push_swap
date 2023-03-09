@@ -3,110 +3,103 @@
 /*                                                        :::      ::::::::   */
 /*   stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suiramdev <marvin@42.fr>                   +#+  +:+       +#+        */
+/*   By: mnouchet <mnouchet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/01 15:29:40 by suiramdev         #+#    #+#             */
-/*   Updated: 2023/03/01 16:35:03 by suiramdev        ###   ########.fr       */
+/*   Created: 2023/03/08 17:38:24 by mnouchet          #+#    #+#             */
+/*   Updated: 2023/03/08 18:51:52 by mnouchet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "types/stacks.h"
-#include "utils/parsing.h"
-#include <libft.h>
+#include "types/stack.h"
+#include <stdlib.h>
+#include <unistd.h>
 
-void	free_stack(t_stack *stack)
+void	free_stack(t_node **stack)
 {
 	t_node	*tmp;
 
-	if (!stack)
-		return ;
-	while (stack->head)
+	tmp = *stack;
+	while (tmp)
 	{
-		tmp = stack->head;
-		stack->head = stack->head->next;
+		*stack = tmp->next;
 		free(tmp);
+		tmp = *stack;
 	}
 	free(stack);
 }
 
-t_stack	*init_stack(char name, char **nums)
+t_node	*push_stack(t_node **stack, int value)
 {
-	t_stack	*stack;
-	t_node	*node;
-	size_t	i;
+	t_node	*new;
+	t_node	*last;
 
-	stack = malloc(sizeof(t_stack));
-	if (!stack)
+	new = malloc(sizeof(t_node));
+	if (!new)
 		return (NULL);
-	stack->name = name;
-	stack->head = NULL;
-	i = 0;
-	while (nums && nums[i])
+	new->value = value;
+	new->next = NULL;
+	if (*stack)
 	{
-		node = new_node(&stack->head, ft_atol(nums[i]));
-		if (!node || !verify_arg(nums[i]) || node->num > INT_MAX)
-		{
-			free_stack(stack);
-			return (NULL);
-		}
-		i++;
+		last = *stack;
+		while (last->next)
+			last = last->next;
+		last->next = new;
 	}
-	stack->size = i;
-	return (stack);
+	else
+		*stack = new;
+	return (new);
 }
 
-void	swap_stack(t_stack *stack)
+size_t	stack_size(t_node *stack)
 {
-	t_node	*first;
-	t_node	*third;
+	size_t	size;
 
-	if (!stack->head)
-		return ;
-	first = stack->head;
-	third = stack->head->next->next;
-	stack->head = stack->head->next;
-	stack->head->next = first;
-	first->next = third;
-	write(1, "s", 1);
-	write(1, &stack->name, 1);
-	write(1, "\n", 1);
+	size = 0;
+	while (stack)
+	{
+		size++;
+		stack = stack->next;
+	}
+	return (size);
 }
 
-void	rotate_stack(t_stack *stack)
+/// @brief Shift up all elements of stack by 1.
+/// The first element becomes the last one.
+/// @param stack The stack to rotate
+void	move_rotate(char c, t_node **stack)
 {
 	t_node	*last;
-	t_node	*before_last;
+	t_node	*tmp;
 
-	if (!stack->head || !stack->head->next)
+	if (!*stack || !(*stack)->next)
 		return ;
-	last = stack->head;
+	last = *stack;
 	while (last->next)
-	{
-		before_last = last;
 		last = last->next;
-	}
-	before_last->next = NULL;
-	last->next = stack->head;
-	stack->head = last;
-	write(1, "r", 1);
-	write(1, &stack->name, 1);
-	write(1, "\n", 1);
+	tmp = *stack;
+	last->next = tmp;
+	*stack = tmp->next;
+	tmp->next = NULL;
+	write(STDOUT_FILENO, "r", 1);
+	write(STDOUT_FILENO, &c, 1);
+	write(STDOUT_FILENO, "\n", 1);
 }
 
-void	push_stack(t_stack *from, t_stack *to)
+/// @brief Take the first element of the stack and put
+/// it first in the other stack
+/// @param from The stack to take the element from
+/// @param to The stack to put the element in
+void	move_push(char c, t_node **from, t_node **to)
 {
-	t_node	*node;
+	t_node	*tmp;
 
-	if (!from->head)
+	if (!*from)
 		return ;
-	node = from->head;
-	from->head = from->head->next;
-	node->next = to->head;
-	to->head = node;
-	to->size++;
-	from->size--;
-	write(1, "p", 1);
-	write(1, &to->name, 1);
-	write(1, "\n", 1);
+	tmp = *from;
+	*from = tmp->next;
+	tmp->next = *to;
+	*to = tmp;
+	write(STDOUT_FILENO, "p", 1);
+	write(STDOUT_FILENO, &c, 1);
+	write(STDOUT_FILENO, "\n", 1);
 }
-

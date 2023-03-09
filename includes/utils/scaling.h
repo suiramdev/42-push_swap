@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math.h                                             :+:      :+:    :+:   */
+/*   scaling.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suiramdev <marvin@42.fr>                   +#+  +:+       +#+        */
+/*   By: mnouchet <mnouchet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/01 14:54:46 by suiramdev         #+#    #+#             */
-/*   Updated: 2023/03/01 14:55:04 by suiramdev        ###   ########.fr       */
+/*   Created: 2023/03/08 18:30:37 by mnouchet          #+#    #+#             */
+/*   Updated: 2023/03/08 18:31:42 by mnouchet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MATH_H
-# define MATH_H
+#ifndef SCALING_H
+# define SCALING_H
 
-long	count_bits(long	num);
-long	ft_pow(long num, long pow);
+# include "types/stack.h"
+
+t_node	**weight_stack(t_node **stack);
 
 #endif

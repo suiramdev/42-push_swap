@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stacks.h                                           :+:      :+:    :+:   */
+/*   maths.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suiramdev <marvin@42.fr>                   +#+  +:+       +#+        */
+/*   By: mnouchet <mnouchet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 16:02:25 by suiramdev         #+#    #+#             */
-/*   Updated: 2023/03/01 15:43:36 by suiramdev        ###   ########.fr       */
+/*   Created: 2023/03/08 18:36:22 by mnouchet          #+#    #+#             */
+/*   Updated: 2023/03/08 18:41:23 by mnouchet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STACKS_H
-# define STACKS_H
+#ifndef MATHS_H
+# define MATHS_H
 
-# include "types/stack.h"
+# include <stdlib.h>
 
-typedef struct s_stacks
-{
-	t_stack	*a;
-	t_stack	*b;
-}	t_stacks;
+size_t	count_bits(size_t num);
 
 #endif

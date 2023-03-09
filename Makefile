@@ -37,10 +37,10 @@ INCS		:= includes				\
 
 SRCS_DIR	:= src
 SRCS		:= main.c			\
+			   types/stack.c	\
+			   utils/maths.c	\
 			   utils/parsing.c	\
-			   utils/math.c		\
-			   types/node.c		\
-			   types/stack.c
+			   utils/scaling.c
 
 SRCS		:= $(SRCS:%=$(SRCS_DIR)/%)
 

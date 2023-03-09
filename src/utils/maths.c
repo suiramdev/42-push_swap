@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math.c                                             :+:      :+:    :+:   */
+/*   maths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suiramdev <marvin@42.fr>                   +#+  +:+       +#+        */
+/*   By: mnouchet <mnouchet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/01 14:53:37 by suiramdev         #+#    #+#             */
-/*   Updated: 2023/03/01 14:54:31 by suiramdev        ###   ########.fr       */
+/*   Created: 2023/03/08 18:35:13 by mnouchet          #+#    #+#             */
+/*   Updated: 2023/03/08 18:41:06 by mnouchet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long	count_bits(long	num)
+#include <stdlib.h>
+
+size_t	count_bits(size_t n)
 {
-	long	count;
+	int	bits;
 
-	count = 0;
-	while (num > 0)
-	{
-		count++;
-		num >>= 1;
-	}
-	return (count);
-}
-
-long	ft_pow(long num, long pow)
-{
-	long	result;
-
-	result = 1;
-	while (pow > 0)
-	{
-		result *= num;
-		pow--;
-	}
-	return (result);
+	bits = 0;
+	while (n >> bits != 0)
+		bits++;
+	return (bits);
 }
