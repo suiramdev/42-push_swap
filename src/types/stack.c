@@ -6,7 +6,7 @@
 /*   By: mnouchet <mnouchet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:38:24 by mnouchet          #+#    #+#             */
-/*   Updated: 2023/03/08 18:51:52 by mnouchet         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:11:37 by mnouchet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,45 +61,4 @@ size_t	stack_size(t_node *stack)
 		stack = stack->next;
 	}
 	return (size);
-}
-
-/// @brief Shift up all elements of stack by 1.
-/// The first element becomes the last one.
-/// @param stack The stack to rotate
-void	move_rotate(char c, t_node **stack)
-{
-	t_node	*last;
-	t_node	*tmp;
-
-	if (!*stack || !(*stack)->next)
-		return ;
-	last = *stack;
-	while (last->next)
-		last = last->next;
-	tmp = *stack;
-	last->next = tmp;
-	*stack = tmp->next;
-	tmp->next = NULL;
-	write(STDOUT_FILENO, "r", 1);
-	write(STDOUT_FILENO, &c, 1);
-	write(STDOUT_FILENO, "\n", 1);
-}
-
-/// @brief Take the first element of the stack and put
-/// it first in the other stack
-/// @param from The stack to take the element from
-/// @param to The stack to put the element in
-void	move_push(char c, t_node **from, t_node **to)
-{
-	t_node	*tmp;
-
-	if (!*from)
-		return ;
-	tmp = *from;
-	*from = tmp->next;
-	tmp->next = *to;
-	*to = tmp;
-	write(STDOUT_FILENO, "p", 1);
-	write(STDOUT_FILENO, &c, 1);
-	write(STDOUT_FILENO, "\n", 1);
 }

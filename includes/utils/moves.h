@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack.h                                            :+:      :+:    :+:   */
+/*   moves.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnouchet <mnouchet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 17:38:35 by mnouchet          #+#    #+#             */
-/*   Updated: 2023/03/09 18:06:33 by mnouchet         ###   ########.fr       */
+/*   Created: 2023/03/09 18:05:54 by mnouchet          #+#    #+#             */
+/*   Updated: 2023/03/09 18:06:29 by mnouchet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STACK_H
-# define STACK_H
+#ifndef MOVES_H
+# define MOVES_H
 
-# include <stdlib.h>
+# include "types/stack.h"
 
-typedef struct s_node
-{
-	int				value;
-	struct s_node	*next;
-}	t_node;
-
-void	free_stack(t_node **stack);
-t_node	*push_stack(t_node **stack, int value);
-size_t	stack_size(t_node *stack);
+void	move_rotate(char c, t_node **stack);
+void	move_reverse_rotate(char c, t_node **stack);
+void	move_push(char c, t_node **from, t_node **to);
+void	move_swap(char c, t_node **stack);
 
 #endif

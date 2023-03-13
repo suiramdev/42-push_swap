@@ -40,7 +40,9 @@ SRCS		:= main.c			\
 			   types/stack.c	\
 			   utils/maths.c	\
 			   utils/parsing.c	\
-			   utils/scaling.c
+			   utils/scaling.c	\
+			   utils/moves.c	\
+			   utils/sorting.c
 
 SRCS		:= $(SRCS:%=$(SRCS_DIR)/%)
 

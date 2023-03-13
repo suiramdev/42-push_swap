@@ -70,7 +70,8 @@ t_node	**parse_args(char **args)
 	while (args && *args)
 	{
 		num = ft_atol(*args);
-		if (num < INT_MIN || num > INT_MAX || !verify_parsing(*args) || !push_stack(stack, num))
+		if (num < INT_MIN || num > INT_MAX || !verify_parsing(*args)
+			|| !push_stack(stack, num))
 		{
 			free_stack(stack);
 			return (NULL);
