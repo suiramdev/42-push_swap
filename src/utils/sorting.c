@@ -46,18 +46,15 @@ void	sort_2_3(t_node **a)
 
 void	sort_4_5(t_node **a, t_node **b)
 {
-	size_t	size;
-
-	size = stack_size(*a);
+	while ((*a)->value != 0)
+		move_rotate('a', a);
 	move_push('b', a, b);
-	if (size == 5)
-		move_push('b', a, b);
+	while ((*a)->value != 1)
+		move_rotate('a', a);
+	move_push('b', a, b);
 	sort_2_3(a);
 	move_push('a', b, a);
-	if (size == 5)
-		move_push('a', b, a);
-	if ((*a)->value > (*a)->next->value)
-		move_swap('a', a);
+	move_push('a', b, a);
 }
 
 void	sort_any(t_node	**a, t_node **b)
