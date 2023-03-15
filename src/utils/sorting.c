@@ -46,6 +46,8 @@ void	sort_2_3(t_node **a)
 
 void	sort_4_5(t_node **a, t_node **b)
 {
+	if (is_sorted(*a))
+		return ;
 	while ((*a)->value != 0)
 		move_rotate('a', a);
 	move_push('b', a, b);
