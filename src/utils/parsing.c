@@ -55,13 +55,40 @@ static int	verify_duplicates(t_node *stack)
 	return (1);
 }
 
+static int	parse_arg(char *arg, t_node **stack)
+{
+	int		i;
+	char	**split;
+	long	num;
+
+	split = ft_split(arg, ' ');
+	i = 0;
+	while (split && split[i])
+	{
+		num = ft_atol(split[i]);
+		if (num < INT_MIN || num > INT_MAX || !verify_parsing(split[i])
+			|| !push_stack(stack, num))
+		{
+			i = 0;
+			while (split && split[i])
+				free(split[i++]);
+			return (0);
+		}
+		i++;
+	}
+	i = 0;
+	while (split && split[i])
+		free(split[i++]);
+	free(split);
+	return (1);
+}
+
 /// @brief Parse the arguments and create a stack
 /// @param args The arguments to parse
 /// @return The stack created from the arguments
 t_node	**parse_args(char **args)
 {
 	t_node	**stack;
-	long	num;
 
 	stack = malloc(sizeof(t_node *));
 	if (!stack)
@@ -69,9 +96,7 @@ t_node	**parse_args(char **args)
 	*stack = NULL;
 	while (args && *args)
 	{
-		num = ft_atol(*args);
-		if (num < INT_MIN || num > INT_MAX || !verify_parsing(*args)
-			|| !push_stack(stack, num))
+		if (!parse_arg(*args, stack))
 		{
 			free_stack(stack);
 			return (NULL);

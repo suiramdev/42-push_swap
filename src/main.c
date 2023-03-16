@@ -16,6 +16,7 @@
 #include "utils/sorting.h"
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 static int	error(void)
 {
@@ -23,14 +24,20 @@ static int	error(void)
 	return (EXIT_FAILURE);
 }
 
-static void	sorting(int argc, t_node **a, t_node **b)
+static void	sorting(t_node **a, t_node **b)
 {
-	if (argc < 5)
-		sort_2_3(a);
-	else if (argc < 7)
-		sort_4_5(a, b);
-	else
-		sort_any(a, b);
+	size_t	size;
+
+	size = stack_size(*a);
+	if (size > 1)
+	{
+		if (size < 4)
+			sort_2_3(a);
+		else if (size < 6)
+			sort_4_5(a, b);
+		else
+			sort_any(a, b);
+	}
 	free_stack(a);
 	free_stack(b);
 }
@@ -41,8 +48,7 @@ int	main(int argc, char **argv)
 	t_node	**a;
 	t_node	**b;
 
-	if (argc <= 2)
-		return (EXIT_SUCCESS);
+	(void)argc;
 	parsed = parse_args(argv + 1);
 	if (!parsed)
 		return (error());
@@ -57,6 +63,6 @@ int	main(int argc, char **argv)
 		return (error());
 	}
 	*b = NULL;
-	sorting(argc, a, b);
+	sorting(a, b);
 	return (EXIT_SUCCESS);
 }
