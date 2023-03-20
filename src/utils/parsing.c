@@ -72,6 +72,7 @@ static int	parse_arg(char *arg, t_node **stack)
 			i = 0;
 			while (split && split[i])
 				free(split[i++]);
+			free(split);
 			return (0);
 		}
 		i++;
